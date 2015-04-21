@@ -80,16 +80,15 @@
                 android:layout_height="wrap_content"
                 android:inputType="time"
                 android:ems="10"
-                android:id="@+id/editText3"
-                android:editable="false"
-                android:text="12:00 AM" />
+                android:id="@+id/editText3" />
 
             <Button
                 style="?android:attr/buttonStyleSmall"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/change_button"
-                android:id="@+id/button2" />
+                android:id="@+id/button2"
+                android:onClick="changeStartTime"/>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -112,7 +111,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/change_button"
-                android:id="@+id/button3" />
+                android:id="@+id/button3"
+                android:onClick="changeEndTime"/>
 
             <TextView
                 android:layout_width="wrap_content"
