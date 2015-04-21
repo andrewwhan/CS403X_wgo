@@ -12,4 +12,5 @@
     <string name="change_button">Change</string>
     <string name="description_label">Description</string>
     <string name="create_button">Create</string>
+    <string name="photo_button">Take Photo</string>
 </resources>
