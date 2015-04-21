@@ -4,14 +4,22 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.EditText;
 
 
 public class CreateEvent extends ActionBarActivity {
+
+    EditText startTime;
+    EditText endTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_event);
+        startTime = (EditText)this.findViewById(R.id.editText3);
+        endTime = (EditText)this.findViewById(R.id.editText4);
+        startTime.setKeyListener(null);
+        endTime.setKeyListener(null);
     }
 
 
