@@ -1,12 +1,17 @@
 package edu.wpi.wgo;
 
 import android.app.TimePickerDialog;
+import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TimePicker;
 
 import java.text.SimpleDateFormat;
@@ -21,6 +26,9 @@ public class CreateEvent extends ActionBarActivity {
     EditText endTimeField;
     Calendar startTime;
     Calendar endTime;
+    ImageView mImageView;
+    Button capture;
+    static final int REQUEST_IMAGE_CAPTURE = 1;
 
     SimpleDateFormat date_format = new SimpleDateFormat("hh:mm a", Locale.US);
 
@@ -35,10 +43,41 @@ public class CreateEvent extends ActionBarActivity {
 
         startTimeField = (EditText)this.findViewById(R.id.editText3);
         endTimeField = (EditText)this.findViewById(R.id.editText4);
+
         startTimeField.setKeyListener(null);
         endTimeField.setKeyListener(null);
+
         startTimeField.setText(date_format.format(startTime.getTime()));
         endTimeField.setText(date_format.format(endTime.getTime()));
+
+        mImageView = (ImageView) this.findViewById(R.id.imageView);
+
+        capture = (Button) findViewById(R.id.button);
+        capture.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+                startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
+            }
+        });
+    }
+
+
+    /* Camera functionality
+    private void dispatchTakePictureIntent() {
+        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
+            startActivityForResult(takePictureIntent, REQUEST_IMAGE_CAPTURE);
+        }
+    }
+    */
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
+            Bundle extras = data.getExtras();
+            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            mImageView.setImageBitmap(imageBitmap);
+        }
     }
 
 
