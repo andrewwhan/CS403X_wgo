@@ -31,6 +31,7 @@ public class CreateEvent extends ActionBarActivity {
     Calendar startTime;
     Calendar endTime;
     ImageView mImageView;
+    Bitmap imageBitmap;
     Button capture;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
@@ -61,6 +62,13 @@ public class CreateEvent extends ActionBarActivity {
 
         mImageView = (ImageView) this.findViewById(R.id.eventPhoto);
 
+        if(savedInstanceState != null){
+            imageBitmap = savedInstanceState.getParcelable("eventPhoto");
+            if(imageBitmap != null){
+                mImageView.setImageBitmap(imageBitmap);
+            }
+        }
+
         capture = (Button) findViewById(R.id.photoButton);
         capture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -84,7 +92,7 @@ public class CreateEvent extends ActionBarActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == RESULT_OK) {
             Bundle extras = data.getExtras();
-            Bitmap imageBitmap = (Bitmap) extras.get("data");
+            imageBitmap = (Bitmap) extras.get("data");
             mImageView.setImageBitmap(imageBitmap);
         }
 
@@ -112,6 +120,12 @@ public class CreateEvent extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outstate){
+        outstate.putParcelable("eventPhoto", imageBitmap);
+        super.onSaveInstanceState(outstate);
     }
 
     public void changeStartTime(View view){
