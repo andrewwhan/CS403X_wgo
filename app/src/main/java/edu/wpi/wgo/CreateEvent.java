@@ -177,4 +177,13 @@ public class CreateEvent extends ActionBarActivity {
         }, endTime.get(Calendar.YEAR), endTime.get(Calendar.MONTH), endTime.get(Calendar.DAY_OF_MONTH));
         dp.show();
     }
+
+    public void makeEvent(View view){
+        Event event = new Event(imageBitmap,
+                ((EditText)findViewById(R.id.eventField)).getText().toString(),
+                ((EditText)findViewById(R.id.locationField)).getText().toString(),
+                startTime.getTime(),
+                endTime.getTime(),
+                ((EditText)findViewById(R.id.descriptionField)).getText().toString());
+    }
 }
