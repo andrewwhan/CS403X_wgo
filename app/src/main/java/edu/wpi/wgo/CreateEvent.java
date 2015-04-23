@@ -179,11 +179,14 @@ public class CreateEvent extends ActionBarActivity {
     }
 
     public void makeEvent(View view){
-        Event event = new Event(imageBitmap,
-                ((EditText)findViewById(R.id.eventField)).getText().toString(),
-                ((EditText)findViewById(R.id.locationField)).getText().toString(),
-                startTime.getTime(),
-                endTime.getTime(),
-                ((EditText)findViewById(R.id.descriptionField)).getText().toString());
+        Intent intent = new Intent();
+        intent.putExtra("Bitmap", imageBitmap);
+        intent.putExtra("Name", ((EditText)findViewById(R.id.eventField)).getText().toString());
+        intent.putExtra("Location", ((EditText)findViewById(R.id.locationField)).getText().toString());
+        intent.putExtra("Start", startTime.getTime());
+        intent.putExtra("End", endTime.getTime());
+        intent.putExtra("Description", ((EditText)findViewById(R.id.descriptionField)).getText().toString());
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }
