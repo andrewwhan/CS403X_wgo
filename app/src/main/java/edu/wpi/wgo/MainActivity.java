@@ -1,7 +1,12 @@
 package edu.wpi.wgo;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.os.SystemClock;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -33,10 +38,6 @@ public class MainActivity extends ActionBarActivity {
         adapter = new ArrayAdapter<Event>(this, android.R.layout.simple_list_item_1, events);
         ListView listView = (ListView) findViewById(R.id.eventList);
         listView.setAdapter(adapter);
-
-        // Create a message handling object as an anonymous class.
-
-
         listView.setOnItemClickListener(mMessageClickedHandler);
     }
 
@@ -93,4 +94,20 @@ public class MainActivity extends ActionBarActivity {
             startActivity(intent);
         }
     };
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        AlarmManager am = (AlarmManager) getSystemService(ALARM_SERVICE);
+        Intent i = new Intent(this, NotificationService.class);
+        PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
+        am.cancel(pi);
+        int minutes = 1;
+        // by my own convention, minutes <= 0 means notifications are disabled
+        if (minutes > 0) {
+            am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
+                    SystemClock.elapsedRealtime() + minutes*60*500,
+                    minutes*60*500, pi);
+        }
+    }
 }
