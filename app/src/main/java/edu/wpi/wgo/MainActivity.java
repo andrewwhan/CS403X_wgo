@@ -93,19 +93,9 @@ public class MainActivity extends ActionBarActivity {
     private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
             // Do something in response to the click
-//            Intent intent = new Intent(MainActivity.this, EventDetail.class);
-//            intent.putExtra("Event", events.get(position));
-//            startActivity(intent);
-            System.out.println("Hi");
-            NotificationCompat.Builder builder = new NotificationCompat.Builder(MainActivity.this);
-//            builder.setSmallIcon(getResources().getIdentifier("goat.png", "drawable", getPackageName()));
-            builder.setSmallIcon(R.drawable.goat);
-            builder.setContentTitle("Event Goating On!");
-            builder.setContentText("People are coding in the zoo lab");
-            Notification not = builder.build();
-            System.out.println(not);
-            NotificationManager notServ = (NotificationManager)getSystemService(Context.NOTIFICATION_SERVICE);
-            notServ.notify(257, not);
+            Intent intent = new Intent(MainActivity.this, EventDetail.class);
+            intent.putExtra("Event", events.get(position));
+            startActivity(intent);
         }
     };
 
@@ -120,8 +110,8 @@ public class MainActivity extends ActionBarActivity {
         // by my own convention, minutes <= 0 means notifications are disabled
         if (minutes > 0) {
             am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime() + minutes*60*500,
-                    minutes*60*500, pi);
+                    SystemClock.elapsedRealtime() + minutes*60*100,
+                    minutes*60*100, pi);
         }
     }
 }

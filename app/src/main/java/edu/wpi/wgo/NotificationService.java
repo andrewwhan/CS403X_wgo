@@ -2,6 +2,7 @@ package edu.wpi.wgo;
 
 import android.app.NotificationManager;
 import android.app.Service;
+import android.content.Context;
 import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.os.AsyncTask;
@@ -25,13 +26,6 @@ public class NotificationService extends Service {
         PowerManager pm = (PowerManager) getSystemService(POWER_SERVICE);
         mWakeLock = pm.newWakeLock(PowerManager.PARTIAL_WAKE_LOCK, "WGO");
         mWakeLock.acquire();
-
-        // check the global background data setting
-        ConnectivityManager cm = (ConnectivityManager) getSystemService(CONNECTIVITY_SERVICE);
-        if (cm.getActiveNetworkInfo() == null) {
-            stopSelf();
-            return;
-        }
 
         // do the actual work, in a separate thread
         new PollTask().execute();
@@ -66,11 +60,11 @@ public class NotificationService extends Service {
         protected void onPostExecute(Void result) {
             // handle your data
             NotificationCompat.Builder builder = new NotificationCompat.Builder(NotificationService.this);
-            builder.setSmallIcon(getResources().getIdentifier("goat.png", "drawable", getPackageName()));
+            builder.setSmallIcon(R.drawable.goat);
             builder.setContentTitle("Event Goating On!");
             builder.setContentText("People are coding in the zoo lab");
             NotificationManager notServ = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-            notServ.notify(1, builder.build());
+            notServ.notify(100, builder.build());
             stopSelf();
         }
     }

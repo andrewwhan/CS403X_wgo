@@ -20,12 +20,12 @@ public class BootReceiver {
         Intent i = new Intent(context, NotificationService.class);
         PendingIntent pi = PendingIntent.getService(context, 0, i, 0);
         am.cancel(pi);
-        int minutes = 2;
+        int minutes = 1;
         // by my own convention, minutes <= 0 means notifications are disabled
         if (minutes > 0) {
             am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime() + minutes*60*500,
-                    minutes*60*500, pi);
+                    SystemClock.elapsedRealtime() + minutes*60*100,
+                    minutes*60*100, pi);
         }
     }
 }

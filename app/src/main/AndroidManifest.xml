@@ -6,6 +6,7 @@
         android:name="android.hardware.camera"
         android:required="true" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:allowBackup="true"
@@ -37,7 +38,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.wpi.wgo.MainActivity" />
         </activity>
-
+        <service android:name="edu.wpi.wgo.NotificationService">
+        </service>
         <receiver android:name=".BootReceiver">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
