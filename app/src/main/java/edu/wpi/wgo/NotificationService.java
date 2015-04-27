@@ -64,7 +64,7 @@ public class NotificationService extends Service {
             builder.setContentTitle("Event Goating On!");
             builder.setContentText("People are coding in the zoo lab");
             NotificationManager notServ = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
-            notServ.notify(100, builder.build());
+            //notServ.notify(100, builder.build());
             stopSelf();
         }
     }

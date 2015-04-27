@@ -106,12 +106,12 @@ public class MainActivity extends ActionBarActivity {
         Intent i = new Intent(this, NotificationService.class);
         PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
         am.cancel(pi);
-        int minutes = 1;
+        int minutes = 2;
         // by my own convention, minutes <= 0 means notifications are disabled
         if (minutes > 0) {
             am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime() + minutes*60*100,
-                    minutes*60*100, pi);
+                    SystemClock.elapsedRealtime() + minutes*60*1000,
+                    minutes*60*1000, pi);
         }
     }
 }
