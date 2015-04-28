@@ -10,6 +10,7 @@ import java.util.Date;
  * Created by Andrew on 4/21/2015.
  */
 public class Event implements Parcelable{
+    private long id;
     private Bitmap eventPhoto;
     private String name;
     private String location;
@@ -26,6 +27,16 @@ public class Event implements Parcelable{
         this.description = description;
     }
 
+    public Event(long id, Bitmap eventPhoto, String name, String location, Date start, Date end, String description){
+        this.id = id;
+        this.eventPhoto = eventPhoto;
+        this.name = name;
+        this.location = location;
+        this.start = start;
+        this.end = end;
+        this.description = description;
+    }
+
     public Event(Parcel in){
         this.eventPhoto = in.readParcelable(Bitmap.class.getClassLoader());
         this.name = in.readString();
@@ -33,6 +44,14 @@ public class Event implements Parcelable{
         this.start = (Date)in.readSerializable();
         this.end = (Date)in.readSerializable();
         this.description = in.readString();
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public Bitmap getEventPhoto() {

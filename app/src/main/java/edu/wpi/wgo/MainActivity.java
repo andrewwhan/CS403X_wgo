@@ -30,16 +30,17 @@ import java.util.List;
 public class MainActivity extends ActionBarActivity {
 
     public final int CREATE_EVENT = 100;
-    private List<Event> events = new ArrayList<Event>();
+    private List<Event> events;
     ArrayAdapter<Event> adapter;
+    private EventDatabaseHelper dbHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        events.add(new Event(null, "Dummy", "123 Highland", new GregorianCalendar().getTime(),
-                new GregorianCalendar().getTime(), "Stuff's going on"));
-        adapter = new ArrayAdapter<Event>(this, android.R.layout.simple_list_item_1, events);
+        dbHelper = new EventDatabaseHelper(this);
+        events = dbHelper.getEvents();
+        adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events);
         ListView listView = (ListView) findViewById(R.id.eventList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(mMessageClickedHandler);
@@ -84,6 +85,7 @@ public class MainActivity extends ActionBarActivity {
 //                        (String)results.get("Location"), (Date)results.get("Start"),
 //                        (Date)results.get("End"), (String)results.get("Description"));
                 Event newEvent = (Event)results.get("Event");
+                newEvent.setId(dbHelper.insertEvent(newEvent));
                 events.add(newEvent);
                 adapter.notifyDataSetChanged();
             }
