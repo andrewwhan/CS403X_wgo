@@ -5,6 +5,7 @@
     <uses-feature
         android:name="android.hardware.camera"
         android:required="true" />
+
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
@@ -38,14 +39,32 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.wpi.wgo.MainActivity" />
         </activity>
-        <service android:name="edu.wpi.wgo.NotificationService">
+
+        <service android:name=".NotificationService" >
         </service>
-        <receiver android:name=".BootReceiver">
+
+        <receiver android:name=".BootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
-    </application>
 
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.wpi.wgo.MainActivity" />
+        </activity>
+        <activity
+            android:name=".Preferences"
+            android:label="@string/title_activity_preferences"
+            android:parentActivityName=".MainActivity" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.wpi.wgo.MainActivity" />
+        </activity>
+    </application>
 
 </manifest>

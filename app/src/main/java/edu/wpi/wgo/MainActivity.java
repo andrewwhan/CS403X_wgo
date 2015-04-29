@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.os.SystemClock;
+import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
@@ -60,13 +61,17 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
+        Intent intent;
         //noinspection SimplifiableIfStatement
         switch(id){
             case R.id.action_settings:
-                return true;
+                intent = new Intent(this, Preferences.class);
+                intent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, Preferences.Prefs1Fragment.class.getName() );
+                intent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+                startActivity(intent);
+                break;
             case R.id.create_event:
-                Intent intent = new Intent(this, CreateEvent.class);
+                intent = new Intent(this, CreateEvent.class);
                 startActivityForResult(intent, CREATE_EVENT);
                 break;
             default:
@@ -94,7 +99,6 @@ public class MainActivity extends ActionBarActivity {
 
     private AdapterView.OnItemClickListener mMessageClickedHandler = new AdapterView.OnItemClickListener() {
         public void onItemClick(AdapterView parent, View v, int position, long id) {
-            // Do something in response to the click
             Intent intent = new Intent(MainActivity.this, EventDetail.class);
             intent.putExtra("Event", events.get(position));
             startActivity(intent);
@@ -109,7 +113,6 @@ public class MainActivity extends ActionBarActivity {
         PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
         am.cancel(pi);
         int minutes = 2;
-        // by my own convention, minutes <= 0 means notifications are disabled
         if (minutes > 0) {
             am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
                     SystemClock.elapsedRealtime() + minutes*60*1000,

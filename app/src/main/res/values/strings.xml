@@ -13,4 +13,5 @@
     <string name="create_button">Create</string>
     <string name="photo_button">Take Photo</string>
     <string name="title_activity_event_detail">EventDetail</string>
+    <string name="title_activity_preferences">Preferences</string>
 </resources>

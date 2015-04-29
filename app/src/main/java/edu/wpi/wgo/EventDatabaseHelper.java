@@ -46,7 +46,6 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         db.execSQL("create table event (id integer primary key autoincrement, image blob, name text," +
                 "location text, start integer, end integer, description text)");
-        //db.execSQL("create table steps (id integer, segment integer, count integer, foreign key(id) references id_list(id))");
     }
 
     @Override
