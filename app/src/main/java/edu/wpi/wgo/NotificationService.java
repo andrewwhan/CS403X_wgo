@@ -12,7 +12,10 @@ import android.os.PowerManager;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
 
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Andrew on 4/24/2015.
@@ -42,6 +45,19 @@ public class NotificationService extends Service {
                     PreferenceManager.getDefaultSharedPreferences(NotificationService.this);
             upcomingEvents = new EventDatabaseHelper(NotificationService.this).upcomingEvents(
                     Integer.parseInt(sharedPreferences.getString("notification_time", "0")) * 60 * 1000);
+            ArrayList<Event> unnotifiedEvents = new ArrayList<Event>();
+            for(Event e:upcomingEvents){
+                Set<String> notifiedEvents = sharedPreferences.getStringSet("notified", null);
+                if(notifiedEvents != null){
+                    if(!notifiedEvents.contains(String.valueOf(e.getId()))){
+                        unnotifiedEvents.add(e);
+                        HashSet<String> newSet = new HashSet<>(notifiedEvents);
+                        newSet.add(String.valueOf(e.getId()));
+                        sharedPreferences.edit().putStringSet("notified", newSet);
+                    }
+                }
+            }
+            upcomingEvents = unnotifiedEvents;
             return null;
         }
 
