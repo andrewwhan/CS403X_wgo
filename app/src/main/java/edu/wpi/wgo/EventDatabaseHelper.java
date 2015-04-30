@@ -90,6 +90,7 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
                     wrapped.getString(2), wrapped.getString(3), new Date(wrapped.getLong(4)),
                     new Date(wrapped.getLong(5)), wrapped.getString(6));
             events.add(event);
+            wrapped.moveToNext();
         }
         return events;
     }

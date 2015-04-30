@@ -48,14 +48,18 @@ public class NotificationService extends Service {
             ArrayList<Event> unnotifiedEvents = new ArrayList<Event>();
             for(Event e:upcomingEvents){
                 Set<String> notifiedEvents = sharedPreferences.getStringSet("notified", null);
-                if(notifiedEvents != null){
-                    if(!notifiedEvents.contains(String.valueOf(e.getId()))){
+                    if(notifiedEvents == null || !notifiedEvents.contains(String.valueOf(e.getId()))){
                         unnotifiedEvents.add(e);
-                        HashSet<String> newSet = new HashSet<>(notifiedEvents);
+                        HashSet<String> newSet;
+                        if(notifiedEvents != null){
+                            newSet = new HashSet<>(notifiedEvents);
+                        }
+                        else{
+                            newSet = new HashSet<>();
+                        }
                         newSet.add(String.valueOf(e.getId()));
-                        sharedPreferences.edit().putStringSet("notified", newSet);
+                        sharedPreferences.edit().putStringSet("notified", newSet).commit();
                     }
-                }
             }
             upcomingEvents = unnotifiedEvents;
             return null;
