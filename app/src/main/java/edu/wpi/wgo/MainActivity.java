@@ -118,8 +118,8 @@ public class MainActivity extends Activity {
         int minutes = Integer.parseInt(sharedPreferences.getString("notification_frequency", "0"));
         if (minutes > 0) {
             am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime() + minutes*60*100,
-                    minutes*60*100, pi);
+                    SystemClock.elapsedRealtime() + minutes*60*1000,
+                    minutes*60*1000, pi);
         }
     }
 }

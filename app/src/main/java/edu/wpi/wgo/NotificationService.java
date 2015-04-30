@@ -47,7 +47,11 @@ public class NotificationService extends Service {
                     Integer.parseInt(sharedPreferences.getString("notification_time", "0")) * 60 * 1000);
             ArrayList<Event> unnotifiedEvents = new ArrayList<Event>();
             for(Event e:upcomingEvents){
+                System.out.println("Comparing " + e.getId());
                 Set<String> notifiedEvents = sharedPreferences.getStringSet("notified", null);
+                for(String s : notifiedEvents){
+                    System.out.println("To " + s);
+                }
                     if(notifiedEvents == null || !notifiedEvents.contains(String.valueOf(e.getId()))){
                         unnotifiedEvents.add(e);
                         HashSet<String> newSet;
