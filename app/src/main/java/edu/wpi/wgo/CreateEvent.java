@@ -1,5 +1,6 @@
 package edu.wpi.wgo;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
@@ -22,17 +23,19 @@ import java.util.GregorianCalendar;
 import java.util.Locale;
 
 
-public class CreateEvent extends ActionBarActivity {
+public class CreateEvent extends Activity {
 
     EditText startTimeField;
     EditText endTimeField;
     EditText startDateField;
     EditText endDateField;
+    EditText locationField;
     Calendar startTime;
     Calendar endTime;
     ImageView mImageView;
     Bitmap imageBitmap;
     Button capture;
+    Button locationButton;
     static final int REQUEST_IMAGE_CAPTURE = 1;
 
     SimpleDateFormat time_format = new SimpleDateFormat("hh:mm a", Locale.US);
@@ -51,6 +54,7 @@ public class CreateEvent extends ActionBarActivity {
         endTimeField = (EditText)this.findViewById(R.id.endTimeField);
         startDateField = (EditText)this.findViewById(R.id.startDateField);
         endDateField = (EditText)this.findViewById(R.id.endDateField);
+        locationField = (EditText) this.findViewById(R.id.locationField);
         startTimeField.setKeyListener(null);
         endTimeField.setKeyListener(null);
         startDateField.setKeyListener(null);
@@ -61,6 +65,7 @@ public class CreateEvent extends ActionBarActivity {
         endDateField.setText(date_format.format(endTime.getTime()));
 
         mImageView = (ImageView) this.findViewById(R.id.eventPhoto);
+
 
         if(savedInstanceState != null){
             imageBitmap = savedInstanceState.getParcelable("eventPhoto");
@@ -76,6 +81,8 @@ public class CreateEvent extends ActionBarActivity {
                 startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
             }
         });
+
+        locationButton = (Button) findViewById(R.id.locationButton);
     }
 
 

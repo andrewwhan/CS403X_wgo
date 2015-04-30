@@ -1,5 +1,6 @@
 package edu.wpi.wgo;
 
+import android.app.Activity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -8,7 +9,7 @@ import android.widget.TextView;
 import android.widget.ImageView;
 
 
-public class EventDetail extends ActionBarActivity {
+public class EventDetail extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
