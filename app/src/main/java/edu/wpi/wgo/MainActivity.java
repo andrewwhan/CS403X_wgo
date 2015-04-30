@@ -61,18 +61,18 @@ public class MainActivity extends ActionBarActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        Intent intent;
+
         //noinspection SimplifiableIfStatement
         switch(id){
             case R.id.action_settings:
-                intent = new Intent(this, Preferences.class);
-                intent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, Preferences.Prefs1Fragment.class.getName() );
-                intent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
-                startActivity(intent);
+                Intent prefIntent = new Intent(this, Preferences.class);
+                prefIntent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, Preferences.Prefs1Fragment.class.getName() );
+                prefIntent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+                startActivity(prefIntent);
                 break;
             case R.id.create_event:
-                intent = new Intent(this, CreateEvent.class);
-                startActivityForResult(intent, CREATE_EVENT);
+                Intent createIntent = new Intent(this, CreateEvent.class);
+                startActivityForResult(createIntent, CREATE_EVENT);
                 break;
             default:
                 break;

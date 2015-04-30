@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 /**
@@ -66,6 +67,21 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
 
     public List<Event> getEvents(){
         Cursor wrapped = getReadableDatabase().query(TABLE_EVENT, null, null, null, null, null, null);
+        wrapped.moveToFirst();
+        ArrayList<Event> events = new ArrayList<>();
+        for(int i=0; i<wrapped.getCount(); i++){
+            Event event = new Event(wrapped.getLong(0), byteToBitmap(wrapped.getBlob(1)),
+                    wrapped.getString(2), wrapped.getString(3), new Date(wrapped.getLong(4)),
+                    new Date(wrapped.getLong(5)), wrapped.getString(6));
+            events.add(event);
+        }
+        return events;
+    }
+
+    public List<Event> upcomingEvents(long period){
+        Cursor wrapped = getReadableDatabase().query(TABLE_EVENT, null, COLUMN_START + " < ? AND "
+        + COLUMN_START + " > ?", new String[]{String.valueOf(new GregorianCalendar().getTimeInMillis() + period),
+        String.valueOf(new GregorianCalendar().getTimeInMillis())}, null, null, null);
         wrapped.moveToFirst();
         ArrayList<Event> events = new ArrayList<>();
         for(int i=0; i<wrapped.getCount(); i++){
