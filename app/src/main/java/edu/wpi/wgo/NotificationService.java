@@ -20,6 +20,7 @@ import java.util.List;
 public class NotificationService extends Service {
 
     private PowerManager.WakeLock mWakeLock;
+    public int count = 0;
 
     @Override
     public IBinder onBind(Intent intent) {
@@ -42,6 +43,7 @@ public class NotificationService extends Service {
                     PreferenceManager.getDefaultSharedPreferences(NotificationService.this);
             upcomingEvents = new EventDatabaseHelper(NotificationService.this).upcomingEvents(
                     Integer.parseInt(sharedPreferences.getString("notification_time", "0")) * 60 * 1000);
+            NotificationService.this.count++;
             return null;
         }
 
@@ -54,6 +56,7 @@ public class NotificationService extends Service {
                 builder.setContentText(upcomingEvents.size() + " events happening soon");
                 NotificationManager notServ = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
                 notServ.notify(100, builder.build());
+                System.out.println("!!!!!!!!!!!!!!!!!!!!" + NotificationService.this.count);
                 stopSelf();
             }
 

@@ -74,6 +74,7 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
                     wrapped.getString(2), wrapped.getString(3), new Date(wrapped.getLong(4)),
                     new Date(wrapped.getLong(5)), wrapped.getString(6));
             events.add(event);
+            wrapped.moveToNext();
         }
         return events;
     }
@@ -108,12 +109,18 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public byte[] bitmapToByte(Bitmap bitmap){
+        if(bitmap == null){
+            return null;
+        }
         ByteArrayOutputStream stream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 0, stream);
         return stream.toByteArray();
     }
 
     public Bitmap byteToBitmap(byte[] image){
+        if(image == null){
+            return null;
+        }
         return BitmapFactory.decodeByteArray(image, 0, image.length);
     }
 }

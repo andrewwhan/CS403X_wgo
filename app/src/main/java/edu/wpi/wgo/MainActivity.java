@@ -112,11 +112,13 @@ public class MainActivity extends ActionBarActivity {
         Intent i = new Intent(this, NotificationService.class);
         PendingIntent pi = PendingIntent.getService(this, 0, i, 0);
         am.cancel(pi);
-        int minutes = 2;
+        SharedPreferences sharedPreferences =
+                PreferenceManager.getDefaultSharedPreferences(this);
+        int minutes = Integer.parseInt(sharedPreferences.getString("notification_frequency", "0"));
         if (minutes > 0) {
             am.setInexactRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP,
-                    SystemClock.elapsedRealtime() + minutes*60*1000,
-                    minutes*60*1000, pi);
+                    SystemClock.elapsedRealtime() + minutes*60*100,
+                    minutes*60*100, pi);
         }
     }
 }
