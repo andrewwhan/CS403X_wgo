@@ -1,0 +1,8 @@
+<preference-headers
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <header android:fragment="edu.wpi.wgo.Preferences$Prefs1Fragment"
+        android:title="WGO Preferences"
+        android:summary="Preferences for What's Goating On?" />
+
+</preference-headers>

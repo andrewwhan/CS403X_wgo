@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Notification Preferences">
+        <CheckBoxPreference
+            android:key="notification_toggle"
+            android:title="Notifications"
+            android:summary="Check if you want to enable notifications about upcoming events"/>
+        <ListPreference
+            android:key="notification_frequency"
+            android:title="Notification Frequency"
+            android:summary="How often you wish to be notified about events starting soon"
+            android:entries="@array/notFrequencyRead"
+            android:entryValues="@array/notFrequencyVal"
+            android:dialogTitle="Notification Frequency"
+            android:defaultValue="30"/>
+        <ListPreference
+            android:key="notification_time"
+            android:title="Pre-event Notification"
+            android:summary="How early you want to be notified before an event"
+            android:entries="@array/notTimeRead"
+            android:entryValues="@array/notTimeVal"
+            android:dialogTitle="Pre-event Notification"
+            android:defaultValue="30"/>
+    </PreferenceCategory>
+</PreferenceScreen>
