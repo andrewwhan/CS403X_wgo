@@ -77,6 +77,22 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
         return events;
     }
 
+    public List<Event> getLiveEvents(){
+        Cursor wrapped = getReadableDatabase().query(TABLE_EVENT, null, COLUMN_END + " > ?",
+                new String[]{String.valueOf(new GregorianCalendar().getTimeInMillis())}, null, null, COLUMN_START);
+        wrapped.moveToFirst();
+        ArrayList<Event> events = new ArrayList<>();
+        for(int i=0; i<wrapped.getCount(); i++){
+            Event event = new Event(wrapped.getLong(0), byteToBitmap(wrapped.getBlob(1)),
+                    wrapped.getString(2), wrapped.getString(3), new Date(wrapped.getLong(4)),
+                    new Date(wrapped.getLong(5)), wrapped.getString(6));
+            events.add(event);
+            wrapped.moveToNext();
+        }
+        wrapped.close();
+        return events;
+    }
+
     public List<Event> upcomingEvents(long period){
         Cursor wrapped = getReadableDatabase().query(TABLE_EVENT, null, COLUMN_START + " < ? AND "
         + COLUMN_START + " > ?", new String[]{String.valueOf(new GregorianCalendar().getTimeInMillis() + period),

@@ -41,7 +41,7 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         dbHelper = new EventDatabaseHelper(this);
-        events = dbHelper.getEvents();
+        events = dbHelper.getLiveEvents();
         adapter = new ArrayAdapter<>(this, android.R.layout.simple_list_item_1, events);
         ListView listView = (ListView) findViewById(R.id.eventList);
         listView.setAdapter(adapter);
