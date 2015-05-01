@@ -9,9 +9,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
+import android.hardware.SensorEventListener;
+import android.location.Location;
+import android.location.LocationListener;
 import android.os.SystemClock;
 import android.preference.PreferenceActivity;
 import android.preference.PreferenceManager;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.NotificationCompat;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
@@ -22,6 +26,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.google.android.gms.maps.CameraUpdateFactory;
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -29,12 +38,13 @@ import java.util.GregorianCalendar;
 import java.util.List;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity implements LocationListener {
 
     public final int CREATE_EVENT = 100;
     private List<Event> events;
     ArrayAdapter<Event> adapter;
     private EventDatabaseHelper dbHelper;
+    private GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +56,20 @@ public class MainActivity extends Activity {
         ListView listView = (ListView) findViewById(R.id.eventList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(mMessageClickedHandler);
+
+
+        map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+        map.setMyLocationEnabled(true);
+        map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            @Override
+            public void onMyLocationChange(Location location) {
+                //Location myLocation = map.getMyLocation();
+                double lat = location.getLatitude();
+                double lng = location.getLongitude();
+                LatLng ll = new LatLng(lat, lng);
+                map.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, 16));
+            }
+        });
     }
 
 
@@ -121,5 +145,25 @@ public class MainActivity extends Activity {
                     SystemClock.elapsedRealtime() + minutes*60*1000,
                     minutes*60*1000, pi);
         }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+
+    }
+
+    @Override
+    public void onStatusChanged(String provider, int status, Bundle extras) {
+
+    }
+
+    @Override
+    public void onProviderEnabled(String provider) {
+
+    }
+
+    @Override
+    public void onProviderDisabled(String provider) {
+
     }
 }

@@ -52,6 +52,15 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="edu.wpi.wgo.MainActivity" />
         </activity>
+        <activity android:name=".MapActivity"
+            android:label="Map Activity"
+            android:parentActivityName="edu.wpi.wgo.CreateEvent">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="edu.wpi.wgo.CreateEvent" />
+        </activity>
+
+
         <activity
             android:name=".EventDetail"
             android:label="@string/title_activity_event_detail"
