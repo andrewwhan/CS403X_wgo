@@ -15,9 +15,6 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-/**
- * Created by Andrew on 4/27/2015.
- */
 public class EventDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "event.sqlite";
     private static final int VERSION = 1;
@@ -66,7 +63,7 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
     }
 
     public List<Event> getEvents(){
-        Cursor wrapped = getReadableDatabase().query(TABLE_EVENT, null, null, null, null, null, null);
+        Cursor wrapped = getReadableDatabase().query(TABLE_EVENT, null, null, null, null, null, COLUMN_START);
         wrapped.moveToFirst();
         ArrayList<Event> events = new ArrayList<>();
         for(int i=0; i<wrapped.getCount(); i++){
@@ -76,6 +73,7 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
             events.add(event);
             wrapped.moveToNext();
         }
+        wrapped.close();
         return events;
     }
 
@@ -92,6 +90,7 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
             events.add(event);
             wrapped.moveToNext();
         }
+        wrapped.close();
         return events;
     }
 
@@ -103,9 +102,10 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
             Event event = new Event(wrapped.getLong(0), byteToBitmap(wrapped.getBlob(1)),
                     wrapped.getString(2), wrapped.getString(3), new Date(wrapped.getLong(4)),
                     new Date(wrapped.getLong(5)), wrapped.getString(6));
+            wrapped.close();
             return event;
         }
-
+        wrapped.close();
         return null;
     }
 

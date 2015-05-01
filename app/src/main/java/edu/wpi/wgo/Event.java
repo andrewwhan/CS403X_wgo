@@ -4,7 +4,9 @@ import android.graphics.Bitmap;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Locale;
 
 /**
  * Created by Andrew on 4/21/2015.
@@ -17,6 +19,9 @@ public class Event implements Parcelable{
     private Date start;
     private Date end;
     private String description;
+
+    SimpleDateFormat time_format = new SimpleDateFormat("hh:mm a", Locale.US);
+    SimpleDateFormat date_format = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
     public Event(Bitmap eventPhoto, String name, String location, Date start, Date end, String description) {
         this.eventPhoto = eventPhoto;
@@ -104,7 +109,14 @@ public class Event implements Parcelable{
 
     @Override
     public String toString(){
-        return name + " - " + description;
+        String string = name + " - " + description + "\n" + date_format.format(start.getTime()) + " " +
+                time_format.format(start.getTime()) + " - ";
+        if(!date_format.format(start.getTime()).equals(date_format.format(end.getTime()))){
+            string += date_format.format(end.getTime());
+        }
+        string += time_format.format(end.getTime());
+        return string;
+
     }
 
     @Override
