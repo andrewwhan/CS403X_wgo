@@ -36,6 +36,8 @@ public class MainActivity extends Activity {
     ArrayAdapter<Event> adapter;
     private EventDatabaseHelper dbHelper;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

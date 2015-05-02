@@ -14,4 +14,6 @@
     <string name="photo_button">Take Photo</string>
     <string name="title_activity_event_detail">EventDetail</string>
     <string name="title_activity_preferences">Preferences</string>
+    <string name="createEventTitle">Create an Event!</string>
+    <string name="date_default">mm/dd/yyyy</string>
 </resources>
