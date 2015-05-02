@@ -57,6 +57,7 @@ public class CreateEvent extends Activity {
         startDateField = (EditText)this.findViewById(R.id.startDateField);
         endDateField = (EditText)this.findViewById(R.id.endDateField);
         locationField = (EditText) this.findViewById(R.id.locationField);
+        locationField.setKeyListener(null);
         startTimeField.setKeyListener(null);
         endTimeField.setKeyListener(null);
         startDateField.setKeyListener(null);
@@ -76,6 +77,7 @@ public class CreateEvent extends Activity {
             }
         }
 
+
         capture = (Button) findViewById(R.id.photoButton);
         capture.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -84,7 +86,7 @@ public class CreateEvent extends Activity {
             }
         });
 
-
+        /*
         locationButton = (Button) findViewById(R.id.locationButton);
         locationButton.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -92,6 +94,7 @@ public class CreateEvent extends Activity {
                 startActivityForResult(mapIntent, MAP_COORDINATES);
             }
         });
+        */
     }
 
     @Override
@@ -186,6 +189,11 @@ public class CreateEvent extends Activity {
             }
         }, endTime.get(Calendar.YEAR), endTime.get(Calendar.MONTH), endTime.get(Calendar.DAY_OF_MONTH));
         dp.show();
+    }
+
+    public void chooseLocation(View view){
+        Intent mapIntent = new Intent(CreateEvent.this, MapActivity.class);
+        startActivityForResult(mapIntent, MAP_COORDINATES);
     }
 
     public void makeEvent(View view){
