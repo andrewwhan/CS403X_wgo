@@ -50,27 +50,27 @@ public class NotificationService extends Service {
             ArrayList<Event> unnotifiedEvents = new ArrayList<Event>();
             for(Event e:upcomingEvents){
                 Set<String> notifiedEvents = sharedPreferences.getStringSet("notified", null);
-                    if(notifiedEvents == null || !notifiedEvents.contains(String.valueOf(e.getId()))){
-                        boolean interested = false;
-                        for(String s:sharedPreferences.getStringSet("notification_tags", null)){
-                            if(e.getTags().contains(s)){
-                                interested = true;
-                                break;
-                            }
+                if(notifiedEvents == null || !notifiedEvents.contains(String.valueOf(e.getId()))){
+                    boolean interested = false;
+                    for(String s:sharedPreferences.getStringSet("notification_tags", null)){
+                        if(e.getTags().contains(s)){
+                            interested = true;
+                            break;
                         }
-                        if(interested){
-                            unnotifiedEvents.add(e);
-                        }
-                        HashSet<String> newSet;
-                        if(notifiedEvents != null){
-                            newSet = new HashSet<>(notifiedEvents);
-                        }
-                        else{
-                            newSet = new HashSet<>();
-                        }
-                        newSet.add(String.valueOf(e.getId()));
-                        sharedPreferences.edit().putStringSet("notified", newSet).commit();
                     }
+                    if(interested){
+                        unnotifiedEvents.add(e);
+                    }
+                    HashSet<String> newSet;
+                    if(notifiedEvents != null){
+                        newSet = new HashSet<>(notifiedEvents);
+                    }
+                    else{
+                        newSet = new HashSet<>();
+                    }
+                    newSet.add(String.valueOf(e.getId()));
+                    sharedPreferences.edit().putStringSet("notified", newSet).commit();
+                }
             }
             upcomingEvents = unnotifiedEvents;
             return null;
