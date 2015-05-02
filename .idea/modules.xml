@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/CS403X_wgo.iml" filepath="$PROJECT_DIR$/CS403X_wgo.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/wgo.iml" filepath="$PROJECT_DIR$/wgo.iml" />
     </modules>
   </component>
 </project>
