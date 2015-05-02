@@ -21,5 +21,13 @@
             android:entryValues="@array/notTimeVal"
             android:dialogTitle="Pre-event Notification"
             android:defaultValue="30"/>
+        <MultiSelectListPreference
+            android:key="notification_tags"
+            android:title="Notification Tags"
+            android:summary="What event tags you want to be notified about"
+            android:entries="@array/notTags"
+            android:entryValues="@array/notTags"
+            android:dialogTitle="Notification Tags"
+            android:defaultValue="@array/notTags"/>
     </PreferenceCategory>
 </PreferenceScreen>

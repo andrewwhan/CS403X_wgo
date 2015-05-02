@@ -28,4 +28,14 @@
         <item>1 hour</item>
         <item>2 hours</item>
     </string-array>
+    <string-array name="notTags">
+        <item>Free</item>
+        <item>Greek</item>
+        <item>Athletic</item>
+        <item>Food</item>
+        <item>Philanthropic</item>
+        <item>Superfan</item>
+        <item>Social</item>
+        <item>Clubs</item>
+    </string-array>
 </resources>
