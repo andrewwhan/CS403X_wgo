@@ -17,6 +17,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -40,6 +41,7 @@ public class CreateEvent extends Activity {
     Bitmap imageBitmap;
     Button capture;
     Button locationButton;
+    MultipleSelection spinner;
     static final int REQUEST_IMAGE_CAPTURE = 1;
     static final int MAP_COORDINATES = 2;
 
@@ -88,6 +90,10 @@ public class CreateEvent extends Activity {
                 startActivityForResult(cameraIntent, REQUEST_IMAGE_CAPTURE);
             }
         });
+
+        String[] array = { "Greek", "Athletic", "Social", "Philanthropic", "Free", "Food", "Superfan","Clubs"  };
+        spinner = (MultipleSelection) findViewById(R.id.mySpinner1);
+        spinner.setItems(array);
 
         /*
         locationButton = (Button) findViewById(R.id.locationButton);
@@ -196,10 +202,16 @@ public class CreateEvent extends Activity {
 
     public void chooseLocation(View view){
         Intent mapIntent = new Intent(CreateEvent.this, MapActivity.class);
-        startActivityForResult(mapIntent, MAP_COORDINATES);
+        startActivityForResult(mapIntent, MAP_COORDINATES); 
+    }
+
+    public void onSpinnerClick(View v){
+        String s = spinner.getSelectedItemsAsString();
+        Toast.makeText(getApplicationContext(), s , Toast.LENGTH_LONG).show();
     }
 
     public void makeEvent(View view){
+        tags = spinner.getSelectedItemsAsString();
         Intent intent = new Intent();
         intent.putExtra("Event", new Event(imageBitmap, ((EditText)findViewById(R.id.eventField)).getText().toString(),
                 lat, lng, startTime.getTime(), endTime.getTime(),

@@ -10,6 +10,7 @@
     <string name="start_time_label">Start</string>
     <string name="end_time_label">End</string>
     <string name="description_label">Description</string>
+    <string name="tags_label">Tags</string>
     <string name="create_button">Create</string>
     <string name="photo_button">Take Photo</string>
     <string name="title_activity_event_detail">EventDetail</string>
