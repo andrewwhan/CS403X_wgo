@@ -112,7 +112,7 @@ public class Event implements Parcelable{
         String string = name + " - " + description + "\n" + date_format.format(start.getTime()) + " " +
                 time_format.format(start.getTime()) + " - ";
         if(!date_format.format(start.getTime()).equals(date_format.format(end.getTime()))){
-            string += date_format.format(end.getTime());
+            string += date_format.format(end.getTime()) + " ";
         }
         string += time_format.format(end.getTime());
         return string;

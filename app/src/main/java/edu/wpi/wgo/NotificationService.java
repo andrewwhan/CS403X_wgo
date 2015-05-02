@@ -1,7 +1,9 @@
 package edu.wpi.wgo;
 
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.app.Service;
+import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -72,11 +74,21 @@ public class NotificationService extends Service {
                 builder.setSmallIcon(R.drawable.goat);
                 builder.setContentTitle("Event Goating On!");
                 builder.setContentText(upcomingEvents.size() + " events happening soon");
+                Intent resultIntent = new Intent(NotificationService.this, MainActivity.class);
+                TaskStackBuilder stackBuilder = TaskStackBuilder.create(NotificationService.this);
+                stackBuilder.addParentStack(MainActivity.class);
+                stackBuilder.addNextIntent(resultIntent);
+                PendingIntent resultPendingIntent =
+                        stackBuilder.getPendingIntent(
+                                0,
+                                PendingIntent.FLAG_UPDATE_CURRENT
+                        );
+                builder.setContentIntent(resultPendingIntent);
+                builder.setAutoCancel(true);
                 NotificationManager notServ = (NotificationManager)getSystemService(NOTIFICATION_SERVICE);
                 notServ.notify(100, builder.build());
                 stopSelf();
             }
-
         }
     }
 
