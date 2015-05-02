@@ -20,11 +20,12 @@ public class Event implements Parcelable{
     private Date start;
     private Date end;
     private String description;
+    private String tags;
 
     SimpleDateFormat time_format = new SimpleDateFormat("hh:mm a", Locale.US);
     SimpleDateFormat date_format = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
-    public Event(Bitmap eventPhoto, String name, double lat, double lng, Date start, Date end, String description) {
+    public Event(Bitmap eventPhoto, String name, double lat, double lng, Date start, Date end, String description, String tags) {
         this.eventPhoto = eventPhoto;
         this.name = name;
         this.lat = lat;
@@ -32,9 +33,10 @@ public class Event implements Parcelable{
         this.start = start;
         this.end = end;
         this.description = description;
+        this.tags = tags;
     }
 
-    public Event(long id, Bitmap eventPhoto, String name, double lat, double lng, Date start, Date end, String description){
+    public Event(long id, Bitmap eventPhoto, String name, double lat, double lng, Date start, Date end, String description, String tags){
         this.id = id;
         this.eventPhoto = eventPhoto;
         this.name = name;
@@ -43,6 +45,7 @@ public class Event implements Parcelable{
         this.start = start;
         this.end = end;
         this.description = description;
+        this.tags = tags;
     }
 
     public Event(Parcel in){
@@ -53,6 +56,7 @@ public class Event implements Parcelable{
         this.start = (Date)in.readSerializable();
         this.end = (Date)in.readSerializable();
         this.description = in.readString();
+        this.tags = in.readString();
     }
 
     public long getId() {
@@ -119,6 +123,14 @@ public class Event implements Parcelable{
         this.description = description;
     }
 
+    public String getTags() {
+        return tags;
+    }
+
+    public void setTags(String tags) {
+        this.tags = tags;
+    }
+
     @Override
     public String toString(){
         String string = name + " - " + description + "\n" + date_format.format(start.getTime()) + " " +
@@ -128,7 +140,6 @@ public class Event implements Parcelable{
         }
         string += time_format.format(end.getTime());
         return string;
-
     }
 
     @Override
@@ -145,6 +156,7 @@ public class Event implements Parcelable{
         dest.writeSerializable(start);
         dest.writeSerializable(end);
         dest.writeString(description);
+        dest.writeString(tags);
     }
 
     public static final Parcelable.Creator CREATOR = new Parcelable.Creator() {

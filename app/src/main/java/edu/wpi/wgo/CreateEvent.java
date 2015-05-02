@@ -33,6 +33,7 @@ public class CreateEvent extends Activity {
     EditText locationField;
     double lat;
     double lng;
+    String tags;
     Calendar startTime;
     Calendar endTime;
     ImageView mImageView;
@@ -201,8 +202,8 @@ public class CreateEvent extends Activity {
     public void makeEvent(View view){
         Intent intent = new Intent();
         intent.putExtra("Event", new Event(imageBitmap, ((EditText)findViewById(R.id.eventField)).getText().toString(),
-                lat, lng, startTime.getTime(),
-                endTime.getTime(), ((EditText)findViewById(R.id.descriptionField)).getText().toString()));
+                lat, lng, startTime.getTime(), endTime.getTime(),
+                ((EditText)findViewById(R.id.descriptionField)).getText().toString(), tags));
 //        intent.putExtra("Bitmap", );
 //        intent.putExtra("Name", );
 //        intent.putExtra("Location", );

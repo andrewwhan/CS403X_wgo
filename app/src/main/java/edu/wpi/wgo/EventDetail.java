@@ -25,6 +25,7 @@ public class EventDetail extends Activity {
         ((TextView)this.findViewById(R.id.start)).setText(event.getStart().toString());
         ((TextView)this.findViewById(R.id.end)).setText(event.getEnd().toString());
         ((TextView)this.findViewById(R.id.description)).setText(event.getDescription());
+        ((TextView)this.findViewById(R.id.tags)).setText(event.getTags());
     }
 
 
