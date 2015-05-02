@@ -21,7 +21,7 @@ public class EventDetail extends Activity {
             eventPhoto.setImageBitmap(event.getEventPhoto());
         }
         ((TextView)this.findViewById(R.id.name)).setText(event.getName());
-        ((TextView)this.findViewById(R.id.location)).setText(event.getLocation());
+        ((TextView)this.findViewById(R.id.location)).setText(event.getLat() + " " + event.getLng());
         ((TextView)this.findViewById(R.id.start)).setText(event.getStart().toString());
         ((TextView)this.findViewById(R.id.end)).setText(event.getEnd().toString());
         ((TextView)this.findViewById(R.id.description)).setText(event.getDescription());

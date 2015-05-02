@@ -31,6 +31,8 @@ public class CreateEvent extends Activity {
     EditText startDateField;
     EditText endDateField;
     EditText locationField;
+    double lat;
+    double lng;
     Calendar startTime;
     Calendar endTime;
     ImageView mImageView;
@@ -106,8 +108,8 @@ public class CreateEvent extends Activity {
         }
         if (requestCode == MAP_COORDINATES && resultCode == RESULT_OK){
             Bundle extras2 = data.getExtras();
-            double lat = (double) extras2.get("lat");
-            double lng = (double) extras2.get("lng");
+            lat = (double) extras2.get("lat");
+            lng = (double) extras2.get("lng");
             locationField.setText(Double.toString(lat) + ", " + Double.toString(lng));
         }
     }
@@ -199,7 +201,7 @@ public class CreateEvent extends Activity {
     public void makeEvent(View view){
         Intent intent = new Intent();
         intent.putExtra("Event", new Event(imageBitmap, ((EditText)findViewById(R.id.eventField)).getText().toString(),
-                ((EditText)findViewById(R.id.locationField)).getText().toString(), startTime.getTime(),
+                lat, lng, startTime.getTime(),
                 endTime.getTime(), ((EditText)findViewById(R.id.descriptionField)).getText().toString()));
 //        intent.putExtra("Bitmap", );
 //        intent.putExtra("Name", );

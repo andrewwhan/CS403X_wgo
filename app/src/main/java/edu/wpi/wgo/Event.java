@@ -15,7 +15,8 @@ public class Event implements Parcelable{
     private long id;
     private Bitmap eventPhoto;
     private String name;
-    private String location;
+    private double lat;
+    private double lng;
     private Date start;
     private Date end;
     private String description;
@@ -23,20 +24,22 @@ public class Event implements Parcelable{
     SimpleDateFormat time_format = new SimpleDateFormat("hh:mm a", Locale.US);
     SimpleDateFormat date_format = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
 
-    public Event(Bitmap eventPhoto, String name, String location, Date start, Date end, String description) {
+    public Event(Bitmap eventPhoto, String name, double lat, double lng, Date start, Date end, String description) {
         this.eventPhoto = eventPhoto;
         this.name = name;
-        this.location = location;
+        this.lat = lat;
+        this.lng = lng;
         this.start = start;
         this.end = end;
         this.description = description;
     }
 
-    public Event(long id, Bitmap eventPhoto, String name, String location, Date start, Date end, String description){
+    public Event(long id, Bitmap eventPhoto, String name, double lat, double lng, Date start, Date end, String description){
         this.id = id;
         this.eventPhoto = eventPhoto;
         this.name = name;
-        this.location = location;
+        this.lat = lat;
+        this.lng = lng;
         this.start = start;
         this.end = end;
         this.description = description;
@@ -45,7 +48,8 @@ public class Event implements Parcelable{
     public Event(Parcel in){
         this.eventPhoto = in.readParcelable(Bitmap.class.getClassLoader());
         this.name = in.readString();
-        this.location = in.readString();
+        this.lat = in.readDouble();
+        this.lng = in.readDouble();
         this.start = (Date)in.readSerializable();
         this.end = (Date)in.readSerializable();
         this.description = in.readString();
@@ -75,12 +79,20 @@ public class Event implements Parcelable{
         this.name = name;
     }
 
-    public String getLocation() {
-        return location;
+    public double getLat() {
+        return lat;
     }
 
-    public void setLocation(String location) {
-        this.location = location;
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLng() {
+        return lng;
+    }
+
+    public void setLng(double lng) {
+        this.lng = lng;
     }
 
     public Date getStart() {
@@ -128,7 +140,8 @@ public class Event implements Parcelable{
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeParcelable(eventPhoto, 0);
         dest.writeString(name);
-        dest.writeString(location);
+        dest.writeDouble(lat);
+        dest.writeDouble(lng);
         dest.writeSerializable(start);
         dest.writeSerializable(end);
         dest.writeString(description);

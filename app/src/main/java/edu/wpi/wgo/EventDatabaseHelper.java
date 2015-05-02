@@ -17,13 +17,14 @@ import java.util.List;
 
 public class EventDatabaseHelper extends SQLiteOpenHelper {
     private static final String DB_NAME = "event.sqlite";
-    private static final int VERSION = 1;
+    private static final int VERSION = 2;
 
     private static final String TABLE_EVENT = "event";
     private static final String COLUMN_ID = "id";
     private static final String COLUMN_IMAGE = "image";
     private static final String COLUMN_NAME = "name";
-    private static final String COLUMN_LOCATION = "location";
+    private static final String COLUMN_LAT = "lat";
+    private static final String COLUMN_LNG = "lng";
     private static final String COLUMN_START = "start";
     private static final String COLUMN_END = "end";
     private static final String COLUMN_DESCRIPTION = "description";
@@ -42,20 +43,22 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
+        db.execSQL("drop table if exists event");
         db.execSQL("create table event (id integer primary key autoincrement, image blob, name text," +
-                "location text, start integer, end integer, description text)");
+                "lat real, lng real, start integer, end integer, description text)");
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
-
+        onCreate(db);
     }
 
     public long insertEvent(Event e) {
         ContentValues cv = new ContentValues();
         cv.put(COLUMN_IMAGE, bitmapToByte(e.getEventPhoto()));
         cv.put(COLUMN_NAME, e.getName());
-        cv.put(COLUMN_LOCATION, e.getLocation());
+        cv.put(COLUMN_LAT, e.getLat());
+        cv.put(COLUMN_LNG, e.getLng());
         cv.put(COLUMN_START, e.getStart().getTime());
         cv.put(COLUMN_END, e.getEnd().getTime());
         cv.put(COLUMN_DESCRIPTION, e.getDescription());
@@ -68,8 +71,8 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Event> events = new ArrayList<>();
         for(int i=0; i<wrapped.getCount(); i++){
             Event event = new Event(wrapped.getLong(0), byteToBitmap(wrapped.getBlob(1)),
-                    wrapped.getString(2), wrapped.getString(3), new Date(wrapped.getLong(4)),
-                    new Date(wrapped.getLong(5)), wrapped.getString(6));
+                    wrapped.getString(2), wrapped.getDouble(3), wrapped.getDouble(4), new Date(wrapped.getLong(5)),
+                    new Date(wrapped.getLong(6)), wrapped.getString(7));
             events.add(event);
             wrapped.moveToNext();
         }
@@ -84,8 +87,8 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Event> events = new ArrayList<>();
         for(int i=0; i<wrapped.getCount(); i++){
             Event event = new Event(wrapped.getLong(0), byteToBitmap(wrapped.getBlob(1)),
-                    wrapped.getString(2), wrapped.getString(3), new Date(wrapped.getLong(4)),
-                    new Date(wrapped.getLong(5)), wrapped.getString(6));
+                    wrapped.getString(2), wrapped.getDouble(3), wrapped.getDouble(4), new Date(wrapped.getLong(5)),
+                    new Date(wrapped.getLong(6)), wrapped.getString(7));
             events.add(event);
             wrapped.moveToNext();
         }
@@ -101,8 +104,8 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
         ArrayList<Event> events = new ArrayList<>();
         for(int i=0; i<wrapped.getCount(); i++){
             Event event = new Event(wrapped.getLong(0), byteToBitmap(wrapped.getBlob(1)),
-                    wrapped.getString(2), wrapped.getString(3), new Date(wrapped.getLong(4)),
-                    new Date(wrapped.getLong(5)), wrapped.getString(6));
+                    wrapped.getString(2), wrapped.getDouble(3), wrapped.getDouble(4), new Date(wrapped.getLong(5)),
+                    new Date(wrapped.getLong(6)), wrapped.getString(7));
             events.add(event);
             wrapped.moveToNext();
         }
@@ -116,8 +119,8 @@ public class EventDatabaseHelper extends SQLiteOpenHelper {
         if(wrapped.getCount() > 0){
             wrapped.moveToFirst();
             Event event = new Event(wrapped.getLong(0), byteToBitmap(wrapped.getBlob(1)),
-                    wrapped.getString(2), wrapped.getString(3), new Date(wrapped.getLong(4)),
-                    new Date(wrapped.getLong(5)), wrapped.getString(6));
+                    wrapped.getString(2), wrapped.getDouble(3), wrapped.getDouble(4), new Date(wrapped.getLong(5)),
+                    new Date(wrapped.getLong(6)), wrapped.getString(7));
             wrapped.close();
             return event;
         }
