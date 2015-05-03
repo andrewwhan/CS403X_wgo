@@ -123,6 +123,8 @@ public class MainActivity extends FragmentActivity implements LocationListener {
                 Event newEvent = (Event)results.get("Event");
                 newEvent.setId(dbHelper.insertEvent(newEvent));
                 events.add(newEvent);
+                map.addMarker(new MarkerOptions().position(new LatLng(newEvent.getLat(),
+                        newEvent.getLng())).title(newEvent.getName()).snippet(newEvent.getTags()));
                 adapter.notifyDataSetChanged();
             }
         }
