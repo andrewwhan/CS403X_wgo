@@ -64,7 +64,7 @@ public class MapActivity extends Activity implements OnMapReadyCallback {
 
             @Override
             public void onMarkerDragStart(Marker marker) {
-                
+
             }
 
             @Override

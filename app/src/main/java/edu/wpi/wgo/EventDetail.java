@@ -1,6 +1,8 @@
 package edu.wpi.wgo;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.preference.PreferenceActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -45,6 +47,10 @@ public class EventDetail extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent prefIntent = new Intent(this, Preferences.class);
+            prefIntent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, Preferences.Prefs1Fragment.class.getName() );
+            prefIntent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+            startActivity(prefIntent);
             return true;
         }
 

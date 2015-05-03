@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceActivity;
 import android.provider.MediaStore;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
@@ -138,6 +139,10 @@ public class CreateEvent extends Activity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            Intent prefIntent = new Intent(this, Preferences.class);
+            prefIntent.putExtra( PreferenceActivity.EXTRA_SHOW_FRAGMENT, Preferences.Prefs1Fragment.class.getName() );
+            prefIntent.putExtra( PreferenceActivity.EXTRA_NO_HEADERS, true );
+            startActivity(prefIntent);
             return true;
         }
 
