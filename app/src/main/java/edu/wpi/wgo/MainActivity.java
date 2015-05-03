@@ -64,13 +64,17 @@ public class MainActivity extends FragmentActivity implements LocationListener {
         map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
         map.setMyLocationEnabled(true);
         map.setOnMyLocationChangeListener(new GoogleMap.OnMyLocationChangeListener() {
+            private boolean initial = true;
             @Override
             public void onMyLocationChange(Location location) {
                 //Location myLocation = map.getMyLocation();
                 double lat = location.getLatitude();
                 double lng = location.getLongitude();
                 LatLng ll = new LatLng(lat, lng);
-                map.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, 16));
+                if(initial){
+                    map.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, 16));
+                    initial = false;
+                }
             }
         });
         for(Event e:events){
