@@ -30,6 +30,7 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -72,6 +73,9 @@ public class MainActivity extends FragmentActivity implements LocationListener {
                 map.moveCamera(CameraUpdateFactory.newLatLngZoom(ll, 16));
             }
         });
+        for(Event e:events){
+            map.addMarker(new MarkerOptions().position(new LatLng(e.getLat(), e.getLng())).title(e.getName()).snippet(e.getTags()));
+        }
     }
 
 
