@@ -60,6 +60,23 @@ public class MapActivity extends Activity implements OnMapReadyCallback {
         mark = map.addMarker(new MarkerOptions()
                 .position(wpi)
                 .draggable(true));
+        map.setOnMarkerDragListener(new GoogleMap.OnMarkerDragListener(){
+
+            @Override
+            public void onMarkerDragStart(Marker marker) {
+                
+            }
+
+            @Override
+            public void onMarkerDrag(Marker marker) {
+
+            }
+
+            @Override
+            public void onMarkerDragEnd(Marker marker) {
+
+            }
+        });
     }
 
 }
