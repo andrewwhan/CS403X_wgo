@@ -133,7 +133,7 @@ public class Event implements Parcelable{
 
     @Override
     public String toString(){
-        String string = name + " - " + description + "\n" + date_format.format(start.getTime()) + " " +
+        String string = name + "\n" + date_format.format(start.getTime()) + " " +
                 time_format.format(start.getTime()) + " - ";
         if(!date_format.format(start.getTime()).equals(date_format.format(end.getTime()))){
             string += date_format.format(end.getTime()) + " ";
