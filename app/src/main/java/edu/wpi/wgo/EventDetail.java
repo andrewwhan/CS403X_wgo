@@ -3,6 +3,7 @@ package edu.wpi.wgo;
 import android.app.Activity;
 import android.content.Intent;
 import android.preference.PreferenceActivity;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -10,8 +11,15 @@ import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.ImageView;
 
+import com.google.android.gms.maps.GoogleMap;
+import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
 
-public class EventDetail extends Activity {
+
+public class EventDetail extends FragmentActivity {
+
+    GoogleMap map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +36,12 @@ public class EventDetail extends Activity {
         ((TextView)this.findViewById(R.id.end)).setText(event.getEnd().toString());
         ((TextView)this.findViewById(R.id.description)).setText(event.getDescription());
         ((TextView)this.findViewById(R.id.tags)).setText(event.getTags());
+
+        map = ((SupportMapFragment) getSupportFragmentManager().findFragmentById(R.id.map)).getMap();
+        map.addMarker(new MarkerOptions().position(new LatLng(event.getLat(), event.getLng())).title(event.getName()).snippet(event.getTags()));
+
     }
+
 
 
     @Override
