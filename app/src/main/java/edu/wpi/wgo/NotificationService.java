@@ -82,7 +82,12 @@ public class NotificationService extends Service {
                 NotificationCompat.Builder builder = new NotificationCompat.Builder(NotificationService.this);
                 builder.setSmallIcon(R.drawable.goat);
                 builder.setContentTitle("Event Goating On!");
-                builder.setContentText(upcomingEvents.size() + " events happening soon");
+                if(upcomingEvents.size() == 1){
+                    builder.setContentText(upcomingEvents.get(0).getName());
+                }
+                else{
+                    builder.setContentText(upcomingEvents.size() + " events happening soon");
+                }
                 Intent resultIntent = new Intent(NotificationService.this, MainActivity.class);
                 TaskStackBuilder stackBuilder = TaskStackBuilder.create(NotificationService.this);
                 stackBuilder.addParentStack(MainActivity.class);
